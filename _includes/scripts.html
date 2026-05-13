@@ -1,0 +1,29 @@
+<script src="{{ base_path }}/assets/js/main.min.js"></script>
+<script>
+  (function () {
+    function onReady(fn) {
+      if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", fn);
+      else fn();
+    }
+
+    function initEmailLink(el) {
+      el.addEventListener("click", function (e) {
+        e.preventDefault();
+        var user = el.getAttribute("data-user");
+        var domain = el.getAttribute("data-domain");
+        if (!user || !domain) return;
+        var href = "mailto:" + user + "@" + domain;
+        el.setAttribute("href", href);
+        window.location.href = href;
+      });
+    }
+
+    onReady(function () {
+      var els = document.querySelectorAll("a.js-email-link[data-user][data-domain]");
+      for (var i = 0; i < els.length; i++) initEmailLink(els[i]);
+    });
+  })();
+</script>
+
+{% include analytics.html %}
+{% include /comments-providers/scripts.html %}
